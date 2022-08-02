@@ -5,9 +5,8 @@ import rospy
 from sensor_msgs.msg import CompressedImage
 import numpy as np
 
-
-rospy.init_node("camera_image")
-image_publisher = rospy.Publisher("data/image", CompressedImage, queue_size=1)
+rospy.init_node("raspberry_camera_node")
+image_publisher = rospy.Publisher("raspberry/data/image", CompressedImage, queue_size=1)
 
 cap = cv.VideoCapture(0)
 cap.set(cv.CAP_PROP_FRAME_WIDTH,640)

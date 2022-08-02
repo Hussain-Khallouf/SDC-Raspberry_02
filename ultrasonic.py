@@ -6,8 +6,8 @@ from sensor_msgs.msg import Range
 
 # from node import Node
 
-rospy.init_node('distance_node_raspberry')
-distance_publisher = rospy.Publisher("data/distance", Range, queue_size=1)
+rospy.init_node('raspberry_ultra_distance')
+distance_publisher = rospy.Publisher("raspberry/data/distance", Range, queue_size=1)
 
 PIN_TRIGGER = 8
 PIN_ECHO = 12
