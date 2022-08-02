@@ -16,6 +16,9 @@ class Node:
             publish_to, MessageType, queue_size=queue_size, **kwargs
         )
 
+    def get_publisher(self, name):
+        return self.publishers.gat(name)
+
     def publish(self, name, msg):
         self.publishers[name].publish(msg)
 
@@ -23,12 +26,11 @@ class Node:
         self, name: str, subscibe_to: str, MessageType, callback, queue_size=1, **kwargs
     ):
         self.subscribers[name] = rospy.Subscriber(
-            "subscibe_to",
-            MessageType,
-            callback=callback,
-            queue_size=queue_size,
-            **kwargs
+            subscibe_to, MessageType, callback=callback, queue_size=queue_size, **kwargs
         )
+
+    def get_subscriber(self, name):
+        return self.subscribers.gat(name)
 
     def spin(self):
         rospy.spin()

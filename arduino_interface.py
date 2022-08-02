@@ -12,18 +12,19 @@ commands = {
     "stop": "S0",
     "go": f"S{speed}",
     "left": f"I{angle_step}",
-    "right": f"D{angle_step}"
+    "right": f"D{angle_step}",
 }
 
-ArduinoSerial=serial.Serial('/dev/ttyACM0',9600,timeout=0.1)
-node = Node('arduino_interface_node')
+ArduinoSerial = serial.Serial("/dev/ttyACM0", 9600, timeout=0.1)
+node = Node("arduino_interface_node")
 
 
 def callback(msg: String):
     print(msg.data)
     # ArduinoSerial.write(cmd.encode('utf-8'))
 
-node.init_subscriber('dist_2_arduino','/data/distance', String, callback)
+
+node.init_subscriber("dist_2_arduino", "/data/distance", String, callback)
 node.spin()
 
 # while True:

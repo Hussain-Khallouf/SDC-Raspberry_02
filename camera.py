@@ -9,18 +9,18 @@ rospy.init_node("raspberry_camera_node")
 image_publisher = rospy.Publisher("raspberry/data/image", CompressedImage, queue_size=1)
 
 cap = cv.VideoCapture(0)
-cap.set(cv.CAP_PROP_FRAME_WIDTH,640)
-cap.set(cv.CAP_PROP_FRAME_HEIGHT,360)
+cap.set(cv.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv.CAP_PROP_FRAME_HEIGHT, 360)
 
 while not rospy.is_shutdown():
     _, frame = cap.read()
     msg = CompressedImage()
     msg.header.stamp = rospy.Time.now()
     msg.format = "jpeg"
-    msg.data = np.array(cv.imencode('.jpg', frame)[1]).tostring()
+    msg.data = np.array(cv.imencode(".jpg", frame)[1]).tostring()
     image_publisher.publish(msg)
 
-    if cv.waitKey(1) & 0xFF == ord('q'):
+    if cv.waitKey(1) & 0xFF == ord("q"):
         break
 
 cap.release()
