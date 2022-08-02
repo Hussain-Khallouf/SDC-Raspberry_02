@@ -21,10 +21,10 @@ node = Node("arduino_interface_node")
 
 def callback(msg: String):
     print(msg.data)
-    # ArduinoSerial.write(cmd.encode('utf-8'))
+    ArduinoSerial.write(commands[msg.data].encode('utf-8'))
 
 
-node.init_subscriber("dist_2_arduino", "/data/distance", String, callback)
+node.init_subscriber("dist_2_arduino", "/engine/commands", String, callback)
 node.spin()
 
 # while True:
