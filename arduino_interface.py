@@ -25,8 +25,5 @@ def callback(msg: String):
 
 
 node.init_subscriber("dist_2_arduino", "/engine/commands", String, callback)
-node.spin()
 
-# while True:
-#     string = input('input speed')
-#     ArduinoSerial.write(string.encode('utf-8'))
+node.spin()
