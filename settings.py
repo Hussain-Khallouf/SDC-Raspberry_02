@@ -6,11 +6,12 @@ load_dotenv('.env')
 
 
 class Settings():
-    TRIGGER_PIN = int(os.getenv('ULTRASONIC_TRIGGER_PIN')) 
-    ECHO_PIN = int(os.getenv('ULTRASONIC_ECHO_PIN'))
-    DISTANCE_DELTA_TIME= float(os.getenv('DISTANCE_DELTA_TIME'))
-    IMAGE_WIDTH = int(os.getenv('IMAGE_WIDTH'))
-    IMAGE_HEIGHT = int(os.getenv('IMAGE_HEIGHT'))
+    TRIGGER_PIN = 8
+    ECHO_PIN = 12
+
+    DISTANCE_DELTA_TIME= 0.1
+    IMAGE_WIDTH = 640
+    IMAGE_HEIGHT = 360
 
 
 

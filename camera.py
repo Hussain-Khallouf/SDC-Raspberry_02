@@ -21,15 +21,14 @@ def init_image_msg(encoded_image):
     msg.format = "jpeg"
     msg.data = encoded_image
 
-
-while not rospy.is_shutdown():
-    _, frame = cap.read()
-    encoded_image = encode_image(frame)
-    msg = init_image_msg(encoded_image)
-    camera_node.publish('image_publisher', msg)
-
-    if cv.waitKey(1) & 0xFF == ord("q"):
-        break
+def main():
+    while not rospy.is_shutdown():
+        _, frame = cap.read()
+        encoded_image = encode_image(frame)
+        msg = init_image_msg(encoded_image)
+        camera_node.publish('image_publisher', msg)
+        if cv.waitKey(1) & 0xFF == ord("q"):
+            break
 
 
 cap.release()

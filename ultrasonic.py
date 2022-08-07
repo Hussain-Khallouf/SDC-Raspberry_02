@@ -4,10 +4,12 @@ import RPi.GPIO as GPIO
 import time
 from sensor_msgs.msg import Range
 from settings import settings
-# from node import Node
+from node import Node
 
-rospy.init_node("raspberry_ultra_distance")
-distance_publisher = rospy.Publisher("raspberry/data/distance", Range, queue_size=1)
+
+ultrasonic_node = Node("raspberry_ultra_distance")
+ultrasonic_node_publisher = "distance_publisher"
+
 
 TRIGGER_PIN = settings.TRIGGER_PIN
 ECHO_PIN = settings.ECHO_PIN
@@ -31,16 +33,19 @@ def calaulate_distance():
     return round(pulse_duration * 17150)
 
 
-try:
-    init_GPIO()
+def main():
+    ultrasonic_node.init_publisher(ultrasonic_node_publisher,"raspberry/data/distance", Range)
     dist = Range()
     dist.min_range = 0
     dist.max_range = 400
-    while not rospy.is_shutdown():
-        distance = calaulate_distance()
-        dist.range = distance
-        distance_publisher.publish(dist)
-        time.sleep(settings.DISTANCE_DELTA_TIME)
-finally:
-    GPIO.cleanup()
+    try:
+        init_GPIO()
+        while not rospy.is_shutdown():
+            distance = calaulate_distance()
+            dist.range = distance
+            ultrasonic_node.publish(ultrasonic_node_publisher ,dist)
+            time.sleep(settings.DISTANCE_DELTA_TIME)
+    finally:
+        GPIO.cleanup()
 
+main()
